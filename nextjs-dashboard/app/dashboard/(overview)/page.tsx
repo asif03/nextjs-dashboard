@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchRevenue } from "../api/dashboard";
+import { fetchRevenue } from "../../api/dashboard";
 
 const Dashboard = async () => {
   const posts = await fetchRevenue();
