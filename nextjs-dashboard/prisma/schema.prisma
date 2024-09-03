@@ -14,29 +14,29 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
   password String
 }
 
 model Customer {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  name      String?
   image_url String
 }
 
 model Invoice {
-  id        Int     @id @default(autoincrement())
-  customer_id  Int
-  amount     Decimal
-  status   String?
-  createdAt  DateTime   @default(now())
+  id          Int      @id @default(autoincrement())
+  customer_id Int
+  amount      Decimal
+  status      String?
+  createdAt   DateTime @default(now())
 }
 
 model Revenue {
-  id    Int     @id @default(autoincrement())
-  month String  @unique
-  revenue  Decimal
+  id      Int     @id @default(autoincrement())
+  month   String  @unique
+  revenue Decimal
 }
