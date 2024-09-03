@@ -13,21 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
   password String
 }
 
-model Customers {
+model Customer {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
   image_url String
 }
 
-model Invoices {
+model Invoice {
   id        Int     @id @default(autoincrement())
   customer_id  Int
   amount     Decimal
@@ -35,7 +35,7 @@ model Invoices {
   createdAt  DateTime   @default(now())
 }
 
-model Revenues {
+model Revenue {
   id    Int     @id @default(autoincrement())
   month String  @unique
   revenue  Decimal

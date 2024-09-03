@@ -1,7 +1,6 @@
 import prisma from "@/lib/db";
 
 export const getAllCustomers = async () => {
-  const res = await prisma.User.findMany();
-
+  const res = await prisma.customer.findMany();
   return res;
 };
