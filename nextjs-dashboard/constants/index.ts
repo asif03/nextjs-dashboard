@@ -1,4 +1,5 @@
 import {
+  CheckBadgeIcon,
   DocumentDuplicateIcon,
   HomeIcon,
   UserGroupIcon,
@@ -12,4 +13,5 @@ export const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+  { name: "Tasks", href: "/dashboard/todos", icon: CheckBadgeIcon },
 ];
