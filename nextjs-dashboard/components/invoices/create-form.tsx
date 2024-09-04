@@ -12,17 +12,19 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
-import { useActionState } from "react";
 import { createInvoice, State } from "@/actions/invoiceAction";
 import {
   CheckIcon,
+  ClockIcon,
   CurrencyDollarIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useFormState } from "react-dom";
+import Link from "next/link";
 
 const InvoiceCreateForm = ({ customers }: { customers: ICustomer[] }) => {
   const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(createInvoice, initialState);
+  const [state, formAction] = useFormState(createInvoice, initialState);
 
   return (
     <form action={formAction} className="space-y-8">

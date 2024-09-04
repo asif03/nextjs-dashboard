@@ -2,11 +2,11 @@ import { getAllCustomers } from "@/app/api/customers/route";
 import Breadcrumbs from "@/components/breadcrumbs";
 import InvoiceCreateForm from "@/components/invoices/create-form";
 
-export default function Page() {
-  const customers = getAllCustomers();
+export default async function Page() {
+  const customers = await getAllCustomers();
   console.log(customers);
   return (
-    <div>
+    <>
       <Breadcrumbs
         breadcrumbs={[
           { id: 1, label: "Dashboard", href: "/dashboard" },
@@ -19,7 +19,12 @@ export default function Page() {
           },
         ]}
       />
-      <InvoiceCreateForm customers={customers} />
-    </div>
+      <ul>
+        {customers.map((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
+      {<InvoiceCreateForm customers={customers} />}
+    </>
   );
 }

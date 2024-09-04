@@ -29,6 +29,7 @@ const CreateInvoice = formSchema.omit({ id: true, date: true });
 //const UpdateInvoice = formSchema.omit({ date: true, id: true });
 
 export const createInvoice = async (formData: FormData) => {
+  console.log(formData);
   // Validate form fields using Zod
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get("customerId"),
