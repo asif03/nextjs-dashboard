@@ -4,7 +4,7 @@ import InvoiceCreateForm from "@/components/invoices/create-form";
 
 export default async function Page() {
   const customers = await getAllCustomers();
-  console.log(customers);
+  //console.log(customers);
   return (
     <>
       <Breadcrumbs

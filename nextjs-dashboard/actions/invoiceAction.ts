@@ -1,10 +1,13 @@
 "use server";
 
+import prisma from "@/lib/db";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const formSchema = z.object({
   id: z.string(),
-  customerId: z.string({
+  customerId: z.bigint({
     invalid_type_error: "Please select a customer.",
   }),
   amount: z.coerce
@@ -18,7 +21,7 @@ const formSchema = z.object({
 
 export type State = {
   errors?: {
-    customerId?: string[];
+    customerId?: number[];
     amount?: string[];
     status?: string[];
   };
@@ -28,8 +31,7 @@ export type State = {
 const CreateInvoice = formSchema.omit({ id: true, date: true });
 //const UpdateInvoice = formSchema.omit({ date: true, id: true });
 
-export const createInvoice = async (formData: FormData) => {
-  console.log(formData);
+export const createInvoice = async (prevState: State, formData: FormData) => {
   // Validate form fields using Zod
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get("customerId"),
@@ -44,7 +46,7 @@ export const createInvoice = async (formData: FormData) => {
       message: "Missing Fields. Failed to Create Invoice.",
     };
   }
-
+  console.log(validatedFields.data);
   // Mutate data
   const { customerId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
@@ -52,10 +54,20 @@ export const createInvoice = async (formData: FormData) => {
 
   // Insert data into the database
   try {
+    await prisma.invoice.create({
+      data: {
+        customer_id: customerId,
+        amount: amountInCents,
+        status: status,
+      },
+    });
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
       message: "Database Error: Failed to Create Invoice.",
     };
   }
+
+  revalidatePath("/dashboard/invoices");
+  redirect("/dashboard/invoices");
 };

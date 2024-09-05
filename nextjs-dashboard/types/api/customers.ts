@@ -1,13 +1,13 @@
 interface ICustomer {
-  id: string;
+  id: number;
   name: string;
   email: string;
   imageUrl?: string;
 }
 
 interface IInvoice {
-  id: string;
-  customerId: string;
+  id: number;
+  customerId: number;
   amount: number;
   status: string;
 }
