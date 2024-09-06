@@ -7,9 +7,7 @@ import { z } from "zod";
 
 const formSchema = z.object({
   id: z.string(),
-  customerId: z.bigint({
-    invalid_type_error: "Please select a customer.",
-  }),
+  customerId: z.coerce.number().gt(0, { message: "Please select a customer." }),
   amount: z.coerce
     .number()
     .gt(0, { message: "Please enter an amount greater than $0." }),
@@ -29,7 +27,7 @@ export type State = {
 };
 
 const CreateInvoice = formSchema.omit({ id: true, date: true });
-//const UpdateInvoice = formSchema.omit({ date: true, id: true });
+const UpdateInvoice = formSchema.omit({ date: true, id: true });
 
 export const createInvoice = async (prevState: State, formData: FormData) => {
   // Validate form fields using Zod
@@ -46,7 +44,7 @@ export const createInvoice = async (prevState: State, formData: FormData) => {
       message: "Missing Fields. Failed to Create Invoice.",
     };
   }
-  console.log(validatedFields.data);
+  //console.log(validatedFields.data);
   // Mutate data
   const { customerId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
@@ -61,6 +59,9 @@ export const createInvoice = async (prevState: State, formData: FormData) => {
         status: status,
       },
     });
+    /*return {
+      message: "Invoice created successfully.",
+    };*/
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
