@@ -1,9 +1,10 @@
 "use server";
 
-import { FormState, signIn, SignupFormSchema } from "@/auth";
+import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/db";
+import { FormState, SignupFormSchema } from "@/validations/signup";
 
 export async function authenticate(
   prevState: string | undefined,
@@ -69,5 +70,13 @@ export async function signup(state: FormState, formData: FormData) {
       message: "User Created Successfully.",
     };
   }
-  console.log(user);
+}
+
+export async function getUser(email: string) {
+  // By unique identifier
+  const user = await prisma.users.findUnique({
+    where: {
+      email: email,
+    },
+  });
 }
