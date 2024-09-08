@@ -15,6 +15,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { signup } from "@/actions/authActions";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { AlertCircle } from "lucide-react";
+import { lusitana } from "../ui/fonts";
 
 const SignupForm = () => {
   const form = useForm();
@@ -34,10 +35,13 @@ const SignupForm = () => {
   }
 
   return (
-    <div>
+    <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-2">
+      <h1 className={`${lusitana.className} my-3 text-2xl`}>
+        Please enter info to continue.
+      </h1>
       {state?.message && <AlertDestructive message={state?.message} />}
       <Form {...form}>
-        <form action={formAction} className="space-y-8">
+        <form action={formAction} className="space-y-4">
           <FormField
             control={form.control}
             name="name"
@@ -79,7 +83,7 @@ const SignupForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
                     id="password"

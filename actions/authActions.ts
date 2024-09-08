@@ -43,8 +43,12 @@ export async function signup(state: FormState, formData: FormData) {
   // Call the provider or db to create a user...
   // 2. Prepare data for insertion into database
   const { name, email, password } = validatedFields.data;
+
   // e.g. Hash the user's password before storing it
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(
+    password,
+    Number(process.env.SALT_ROUNDS)
+  );
 
   const userIsExists = await prisma.users.findUnique({
     where: {
@@ -79,4 +83,6 @@ export async function getUser(email: string) {
       email: email,
     },
   });
+
+  return user;
 }

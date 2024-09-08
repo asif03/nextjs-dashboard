@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
+      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 px-2">
         <CodewithasifLogo />
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
@@ -15,11 +15,17 @@ export default function Home() {
           <p
             className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
           >
-            <strong>Welcome to Acme.</strong> This is the example for the{" "}
+            <strong>
+              Welcome to{" "}
+              <a href="https://codewithasif.com/" className="text-blue-500">
+                Code With Asif
+              </a>
+              .
+            </strong>{" "}
+            This is the example code{" "}
             <a href="https://nextjs.org/learn/" className="text-blue-500">
-              Next.js Learn Course
+              Next.js Application
             </a>
-            , brought to you by Vercel.
           </p>
           <Link
             href="/login"

@@ -1,14 +1,15 @@
 import React from "react";
 import { lusitana } from "./ui/fonts";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 const CodewithasifLogo = () => {
   return (
     <div
-      className={`${lusitana.className} flex flex-row items-center leading-none text-white`}
+      className={`${lusitana.className} flex flex-row items-center justify-start leading-none text-white gap-2 h-20`}
     >
-      <GlobeAltIcon className="h-12 w-12 rotate-[15deg]" />
-      <p className="text-[44px] ">Code With Asif</p>
+      <Image src="/logo-cwa-dashboard.png" width={48} height={48} alt="Logo" />
+      <p className="lg:text-[44px] text-3xl">Code With Asif</p>
     </div>
   );
 };
