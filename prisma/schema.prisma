@@ -20,8 +20,8 @@ model users {
   password String
 }
 
-model Customer {
-  id        Int     @id @default(autoincrement())
+model customers {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   email     String  @unique
   name      String?
   image_url String
