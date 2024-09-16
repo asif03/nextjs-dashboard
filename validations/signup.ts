@@ -7,6 +7,7 @@ export type FormState =
         email?: string[];
         password?: string[];
       };
+      statusCode?: number;
       message?: string;
     }
   | undefined;
