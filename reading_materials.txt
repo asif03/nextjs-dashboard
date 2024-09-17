@@ -1,0 +1,2 @@
+https://www.pronextjs.dev/next-js-file-uploads-server-side-solutions
+https://medium.com/@irwantoalvin/how-to-upload-file-to-the-directory-using-next-js-app-router-prismaorm-mysql-and-postman-d6e3a5ba5054
