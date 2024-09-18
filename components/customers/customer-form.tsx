@@ -66,8 +66,8 @@ const CustomerForm = () => {
                   <FormControl>
                     <Input id="avatar" type="file" name={field.name} />
                   </FormControl>
-                  {state?.errors?.email && (
-                    <FormMessage>{state.errors.email}</FormMessage>
+                  {state?.errors?.avatar && (
+                    <FormMessage>{state.errors.avatar}</FormMessage>
                   )}
                 </FormItem>
               )}
