@@ -21,18 +21,21 @@ model users {
 }
 
 model customers {
-  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email     String  @unique
-  name      String?
-  image_url String
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email      String     @unique
+  name       String?
+  image_url  String
+  created_at DateTime   @default(now())
+  invoices   invoices[]
 }
 
-model Invoice {
-  id          Int      @id @default(autoincrement())
-  customer_id Int
+model invoices {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   amount      Decimal
+  customer_id String     @db.Uuid
   status      String?
-  createdAt   DateTime @default(now())
+  customer    customers? @relation(fields: [customer_id], references: [id])
+  created_at  DateTime   @default(now())
 }
 
 model Revenue {
