@@ -32,9 +32,9 @@ model customers {
 model invoices {
   id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   amount      Decimal
-  customer_id String     @db.Uuid
   status      String?
   customer    customers? @relation(fields: [customer_id], references: [id])
+  customer_id String     @db.Uuid
   created_at  DateTime   @default(now())
 }
 
