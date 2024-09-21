@@ -7,7 +7,9 @@ import { z } from "zod";
 
 const formSchema = z.object({
   id: z.string(),
-  customerId: z.coerce.number().gt(0, { message: "Please select a customer." }),
+  customerId: z.string({
+    invalid_type_error: "Customer name is required",
+  }),
   amount: z.coerce
     .number()
     .gt(0, { message: "Please enter an amount greater than $0." }),
@@ -19,7 +21,7 @@ const formSchema = z.object({
 
 export type State = {
   errors?: {
-    customerId?: number[];
+    customerId?: string[];
     amount?: string[];
     status?: string[];
   };
@@ -52,7 +54,7 @@ export const createInvoice = async (prevState: State, formData: FormData) => {
 
   // Insert data into the database
   try {
-    await prisma.invoice.create({
+    await prisma.invoices.create({
       data: {
         customer_id: customerId,
         amount: amountInCents,

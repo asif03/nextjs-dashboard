@@ -14,28 +14,29 @@ CREATE TABLE "customers" (
     "email" TEXT NOT NULL,
     "name" TEXT,
     "image_url" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "customers_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Invoice" (
-    "id" SERIAL NOT NULL,
-    "customer_id" INTEGER NOT NULL,
+CREATE TABLE "invoices" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "amount" DECIMAL(65,30) NOT NULL,
     "status" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "customer_id" UUID NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Invoice_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "invoices_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Revenue" (
+CREATE TABLE "revenues" (
     "id" SERIAL NOT NULL,
     "month" TEXT NOT NULL,
     "revenue" DECIMAL(65,30) NOT NULL,
 
-    CONSTRAINT "Revenue_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "revenues_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -45,4 +46,7 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE UNIQUE INDEX "customers_email_key" ON "customers"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Revenue_month_key" ON "Revenue"("month");
+CREATE UNIQUE INDEX "revenues_month_key" ON "revenues"("month");
+
+-- AddForeignKey
+ALTER TABLE "invoices" ADD CONSTRAINT "invoices_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "customers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

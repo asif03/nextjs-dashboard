@@ -38,7 +38,7 @@ model invoices {
   created_at  DateTime   @default(now())
 }
 
-model Revenue {
+model revenues {
   id      Int     @id @default(autoincrement())
   month   String  @unique
   revenue Decimal
