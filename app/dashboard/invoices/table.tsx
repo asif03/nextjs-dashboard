@@ -4,6 +4,7 @@ import Image from "next/image";
 import InvoiceStatus from "./status";
 import { UpdateInvoice } from "./buttons";
 import { formatCurrency, formatDateToLocal } from "@/lib/utils";
+import { fetchFilteredInvoices } from "@/app/api/invoices/route";
 
 const customers = [
   {
@@ -82,7 +83,10 @@ export default async function InvoicesTable({
   query: string;
   currentPage: number;
 }) {
-  //const invoices = await fetchFilteredInvoices(query, currentPage);
+  console.log(currentPage);
+  const invoices = await fetchFilteredInvoices(query, currentPage);
+
+  console.log(invoices);
 
   return (
     <div className="mt-6 flow-root">
