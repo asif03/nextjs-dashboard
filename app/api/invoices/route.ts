@@ -12,7 +12,7 @@ export const fetchFilteredInvoices = async ({
 
   try {
     const result = await prisma.$queryRawUnsafe(
-      `SELECT invoices.id, invoices.amount, invoices.status, customers.name, customers.email, customers.image_url 
+      `SELECT invoices.id, invoices.amount, invoices.status, customers.name, customers.email, customers.image_url, invoices.created_at
         FROM invoices
         JOIN customers ON invoices.customer_id = customers.id`
     );
