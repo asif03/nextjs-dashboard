@@ -34,3 +34,31 @@ export const fetchFilteredInvoices = async ({
     //throw new Error("Failed to fetch invoices.");
   }
 };
+
+const ITEMS_PER_PAGE = 6;
+export async function fetchInvoicesPages(query: string) {
+  try {
+    const count = await prisma.$queryRawUnsafe(
+      `SELECT COUNT(*) as cnt
+        FROM invoices
+        JOIN customers ON invoices.customer_id = customers.id`
+    );
+
+    console.log(count);
+    const totalPages = Math.ceil(Number(count) / ITEMS_PER_PAGE);
+
+    console.log(totalPages);
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
+export async function fetchInvoiceById(id: string) {
+  const user = await prisma.invoices.findUnique({
+    where: {
+      id: id,
+    },
+  });
+}

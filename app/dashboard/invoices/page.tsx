@@ -7,8 +7,9 @@ import { InvoicesTableSkeleton } from "@/components/skeletons";
 import { Suspense } from "react";
 import InvoicesTable from "./table";
 import Pagination from "./pagination";
+import { fetchInvoicesPages } from "@/app/api/invoices/route";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams?: {
@@ -18,6 +19,9 @@ export default function Page({
 }) {
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
+
+  const totalPages = await fetchInvoicesPages(query);
+
   return (
     <div className="w-full">
       <Breadcrumbs
@@ -42,7 +46,7 @@ export default function Page({
         {<InvoicesTable query={query} currentPage={currentPage} />}
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        {<Pagination totalPages={totalPages} />}
       </div>
     </div>
   );
